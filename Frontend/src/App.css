@@ -1,42 +1,68 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.App {
+  position: relative;
+  /* 使 .login-form 的绝对定位相对于 .App */
+  height: 100vh;
+  background-image: url('D:\codes\-WEB\Frontend\src\assets\background.jpg');
+  /* 替换为你的图片路径 */
+  background-size: 100% 100%;
+  /* 使背景图片覆盖整个容器 */
+  background-position: center;
+  /* 背景图片居中 */
+  background-repeat: no-repeat;
+  /* 不重复背景图片 */
+  margin: 0;
+  /* 确保没有默认的边距 */
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.login-form {
+  position: absolute;
+  top: 20%;
+  /* 调整为你希望的垂直位置 */
+  left: 50%;
+  transform: translate(-50%, 0);
+  /* 水平居中 */
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  /* 控制表单的最大宽度 */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.login-form h1 {
+  margin-bottom: 20px;
 }
 
-.card {
-  padding: 2em;
+.login-form div {
+  margin-bottom: 15px;
 }
 
-.read-the-docs {
-  color: #888;
+.login-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.login-form button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.login-form button:hover {
+  background-color: #0056b3;
+}
+
+.error {
+  color: red;
+  font-size: 0.9em;
 }
