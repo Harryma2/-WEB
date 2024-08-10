@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import './LoginForm.css'; // 引入CSS样式文件
+import { useNavigate } from 'react-router-dom';
+import './LoginForm.css';
+
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+
+    const navigate = useNavigate();
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -15,7 +19,14 @@ const LoginForm = () => {
         }
 
         console.log('登录信息:', { email, password });
-        setError('');
+
+        // 模拟登录验证，这里可以替换为实际的验证逻辑
+        if (email === 'user@example.com' && password === 'password') {
+            setError('');
+            navigate('/main'); // 登录成功后跳转到主页面
+        } else {
+            setError('账号或密码错误');
+        }
     };
 
     return (

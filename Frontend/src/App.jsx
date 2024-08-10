@@ -1,13 +1,13 @@
 import React from 'react';
-import LoginForm from './components/LoginForm';
-import './App.css';
+import AppRoutes from './routes';
 
 function App() {
   return (
     <div className="App">
-      <LoginForm />
+      <AppRoutes />
     </div>
   );
 }
 
 export default App;
+
