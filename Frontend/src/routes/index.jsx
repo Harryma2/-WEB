@@ -1,18 +1,16 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import LoginForm from '../components/LoginForm';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import HomePage from '../pages/HomePage';
 import MainPage from '../pages/MainPage';
 
-const AppRoutes = () => {
-    return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<Navigate to="/login" />} />
-                <Route path="/login" element={<LoginForm />} />
-                <Route path="/main" element={<MainPage />} />
-            </Routes>
-        </Router>
-    );
-};
+const AppRoutes = () => (
+    <Router>
+        <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/main" element={<MainPage />} />
+            {/* 其他路由 */}
+        </Routes>
+    </Router>
+);
 
 export default AppRoutes;
+
