@@ -50,6 +50,26 @@
     transform: scale(1.05);
 }
 
+.follow-button {
+    background-color: #FF7E5F;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.follow-button.following {
+    background-color: #FF6347;
+}
+
+.follow-button:hover {
+    background-color: #FF6347;
+    transform: scale(1.05);
+}
+
 .group-description {
     margin: 20px 0;
     text-align: center;

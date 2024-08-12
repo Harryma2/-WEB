@@ -21,6 +21,9 @@
     border-radius: 12px;
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
     margin-bottom: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .new-post-header h1 {
@@ -54,26 +57,36 @@
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
 }
 
 .post-title {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
     border-radius: 8px;
-    font-size: 18px;
-    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    font-size: 16px;
 }
 
 .post-textarea {
     width: 100%;
-    height: 200px;
     padding: 10px;
-    border: 1px solid #ddd;
     border-radius: 8px;
+    border: 1px solid #ddd;
+    height: 200px;
+    resize: vertical;
+    margin-bottom: 20px;
     font-size: 16px;
-    margin-bottom: 15px;
-    resize: none;
+}
+
+.post-image-container {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    margin-top: 10px;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .post-image-preview {
@@ -81,11 +94,49 @@
     height: auto;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin-bottom: 15px;
 }
 
-.post-image-upload {
-    margin-bottom: 15px;
+.remove-image {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #FF6347;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.remove-image:hover {
+    background-color: #FF4500;
+}
+
+.file-input-label {
+    background-color: #FF7E5F;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.file-input-label:hover {
+    background-color: #FF6347;
+}
+
+.file-input {
+    display: none;
 }
 
 .submit-button {

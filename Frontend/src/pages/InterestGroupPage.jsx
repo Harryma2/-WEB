@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './InterestGroupPage.css';
 
 const InterestGroupPage = () => {
+    const [isFollowing, setIsFollowing] = useState(false);
     const navigate = useNavigate();
     const { groupId } = useParams();
+
+    useEffect(() => {
+        // 从 localStorage 获取关注状态
+        const followed = localStorage.getItem(`followedGroup_${groupId}`);
+        setIsFollowing(!!followed);
+    }, [groupId]);
 
     const interestGroups = {
         1: { name: '音乐圈', description: '分享音乐的乐趣', activeMembers: 128, posts: [{ id: 1, title: '音乐推荐', content: '分享我最近听到的好音乐...' }] },
@@ -27,11 +34,22 @@ const InterestGroupPage = () => {
     };
 
     const handlePostNewClick = () => {
-        navigate(`/group/${groupId}/new-post`); // 发帖子
+        navigate(`/group/${groupId}/new-post`);
     };
 
     const handlePostClick = (id) => {
-        navigate(`/post/${id}`); // 导航到帖子详情页
+        navigate(`/post/${id}`);
+    };
+
+    const handleFollowClick = () => {
+        const newIsFollowing = !isFollowing;
+        setIsFollowing(newIsFollowing);
+
+        if (newIsFollowing) {
+            localStorage.setItem(`followedGroup_${groupId}`, 'true');
+        } else {
+            localStorage.removeItem(`followedGroup_${groupId}`);
+        }
     };
 
     return (
@@ -42,6 +60,12 @@ const InterestGroupPage = () => {
                 <div className="active-members">
                     活跃成员: {group.activeMembers}
                 </div>
+                <button
+                    onClick={handleFollowClick}
+                    className={`follow-button ${isFollowing ? 'following' : ''}`}
+                >
+                    {isFollowing ? '已关注' : '关注'}
+                </button>
             </header>
 
             <div className="group-description">

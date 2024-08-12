@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './NewPostPage.css';
 
 const NewPostPage = () => {
@@ -7,7 +7,6 @@ const NewPostPage = () => {
     const [content, setContent] = useState('');
     const [image, setImage] = useState(null);
     const navigate = useNavigate();
-    const { groupId } = useParams();
 
     const handleTitleChange = (e) => setTitle(e.target.value);
     const handleContentChange = (e) => setContent(e.target.value);
@@ -18,10 +17,16 @@ const NewPostPage = () => {
         }
     };
 
+    const handleImageRemove = () => {
+        setImage(null);
+        // 清除文件输入
+        document.querySelector('.file-input').value = '';
+    };
+
     const handleSubmit = () => {
-        // 处理提交逻辑，例如发送请求到服务器
-        console.log('提交帖子:', { title, content, image, groupId });
-        navigate(`/group/${groupId}`); // 提交后返回兴趣圈界面
+        // 处理提交逻辑
+        console.log('提交帖子:', { title, content, image });
+        navigate('/group'); // 假设提交后返回兴趣圈界面
     };
 
     const handleBackClick = () => {
@@ -49,13 +54,25 @@ const NewPostPage = () => {
                     onChange={handleContentChange}
                     className="post-textarea"
                 />
-                {image && <img src={image} alt="预览" className="post-image-preview" />}
+
+                {/* 图片预览和删除按钮 */}
+                {image && (
+                    <div className="post-image-container">
+                        <img src={image} alt="预览" className="post-image-preview" />
+                        <button onClick={handleImageRemove} className="remove-image">×</button>
+                    </div>
+                )}
+
+                {/* 隐藏文件输入和自定义上传按钮 */}
+                <label htmlFor="file-input" className="file-input-label">上传图片</label>
                 <input
+                    id="file-input"
                     type="file"
                     accept="image/*"
                     onChange={handleImageChange}
-                    className="post-image-upload"
+                    className="file-input"
                 />
+
                 <button onClick={handleSubmit} className="submit-button">提交</button>
             </div>
         </div>

@@ -5,6 +5,7 @@ import UserProfilePage from '../pages/UserProfilePage';
 import InterestGroupPage from '../pages/InterestGroupPage';
 import PostPage from '../pages/PostPage';
 import NewPostPage from '../pages/NewPostPage';
+import CreateGroupPage from '../pages/CreateGroupPage';
 
 const AppRoutes = () => (
     <Router>
@@ -15,6 +16,7 @@ const AppRoutes = () => (
             <Route path="/group/:groupId" element={<InterestGroupPage />} />
             <Route path='/post/:postId' element={<PostPage />} />
             <Route path='/group/:groupId/new-post' element={<NewPostPage />} />
+            <Route path='/create-group' element={<CreateGroupPage />} />
             {/* 其他路由 */}
         </Routes>
     </Router>

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './UserProfilePage.css';
 
 const UserProfilePage = () => {
+    const [followedGroups, setFollowedGroups] = useState([]);
     const navigate = useNavigate();
 
     const user = {
@@ -17,12 +18,17 @@ const UserProfilePage = () => {
         // 添加更多的帖子
     ];
 
-    const interestGroups = [
-        { id: 1, name: '音乐' },
-        { id: 4, name: '旅行' },
-        { id: 5, name: '美食' },
-        // 添加更多的兴趣圈
-    ];
+    useEffect(() => {
+        // 从 localStorage 获取用户关注的兴趣圈
+        const followedGroups = [];
+        for (let i = 1; i <= 10; i++) {
+            const followed = localStorage.getItem(`followedGroup_${i}`);
+            if (followed) {
+                followedGroups.push({ id: i, name: `兴趣圈 ${i}` }); // 根据实际需求调整兴趣圈名称
+            }
+        }
+        setFollowedGroups(followedGroups);
+    }, []);
 
     const handleBackClick = () => {
         navigate('/main'); // 返回主界面
@@ -64,7 +70,7 @@ const UserProfilePage = () => {
             <section className="profile-interest-groups">
                 <h2>我的兴趣圈</h2>
                 <div className="profile-groups-list">
-                    {interestGroups.map((group) => (
+                    {followedGroups.map((group) => (
                         <div key={group.id} className="profile-group-card" onClick={() => handleGroupClick(group.id)}>
                             <h3>{group.name}</h3>
                         </div>
