@@ -2,6 +2,14 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './MainPage.css';
 
+// 子组件：InterestGroupCard
+const InterestGroupCard = ({ group, onClick }) => (
+    <div className="group-card" onClick={() => onClick(group.id)}>
+        <h3>{group.name}</h3>
+        <p>{group.description}</p>
+    </div>
+);
+
 const MainPage = () => {
     const navigate = useNavigate();
 
@@ -16,17 +24,18 @@ const MainPage = () => {
         { id: 8, name: '读书', description: '分享阅读心得' },
         { id: 9, name: '手工', description: 'DIY手工艺品' },
         { id: 10, name: '游戏', description: '玩游戏的乐趣' },
-        // 可以添加更多的兴趣圈
     ];
 
     const handleUserClick = () => {
-        // 导航到用户个人资料页面
         navigate('/profile');
     };
 
     const handleGroupClick = (id) => {
-        // 导航到兴趣圈详情页
         navigate(`/group/${id}`);
+    };
+
+    const handleCreateGroupClick = () => {
+        navigate('/create-group'); // 跳转到创建兴趣圈的页面
     };
 
     return (
@@ -36,21 +45,21 @@ const MainPage = () => {
                     我
                 </button>
                 <h1>
-                    <h1>
-                        FriendJoy <span role="img" aria-label="handshake">🤝</span>
-                    </h1>
-
+                    FriendJoy <span role="img" aria-label="handshake">🤝</span>
                 </h1>
-
+                <button onClick={handleCreateGroupClick} className="create-group-button">
+                    创建你的兴趣圈
+                </button>
             </header>
 
             <section className="interest-groups">
                 <div className="groups-container">
                     {interestGroups.map((group) => (
-                        <div key={group.id} className="group-card" onClick={() => handleGroupClick(group.id)}>
-                            <h3>{group.name}</h3>
-                            <p>{group.description}</p>
-                        </div>
+                        <InterestGroupCard
+                            key={group.id}
+                            group={group}
+                            onClick={handleGroupClick}
+                        />
                     ))}
                 </div>
             </section>

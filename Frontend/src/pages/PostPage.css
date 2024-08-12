@@ -1,0 +1,139 @@
+.post-page {
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #FFF5EE, #FFFAF0);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #333;
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1000px;
+    padding: 15px 20px;
+    background: linear-gradient(90deg, #FF7E5F, #FF9A8B);
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.post-header h1 {
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.back-button {
+    background-color: #FFA500;
+    /* 主颜色橙色 */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #FF8C00;
+    /* 橙色的稍微暗一点的色调 */
+    transform: scale(1.05);
+}
+
+.post-content {
+    width: 100%;
+    max-width: 1000px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+.post-meta {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.post-image {
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.post-comments {
+    width: 100%;
+    max-width: 1000px;
+}
+
+.comments-list {
+    margin-bottom: 20px;
+}
+
+.comment-card {
+    background-color: #FFF;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.comment-user {
+    font-weight: bold;
+    color: #FFA500;
+    /* 主颜色橙色 */
+}
+
+.comment-input {
+    display: flex;
+    gap: 10px;
+}
+
+.comment-input input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    outline: none;
+    font-size: 16px;
+}
+
+.comment-input input:focus {
+    border-color: #FFA500;
+    /* 主颜色橙色 */
+    box-shadow: 0 0 5px rgba(255, 165, 0, 0.5);
+}
+
+.comment-submit {
+    background-color: #FFA500;
+    /* 主颜色橙色 */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.comment-submit:hover {
+    background-color: #FF8C00;
+    /* 橙色的稍微暗一点的色调 */
+    transform: scale(1.05);
+}

@@ -1,0 +1,13 @@
+.create-group-page {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f8f9fa;
+}
+
+.create-group-header {
+    padding: 20px;
+    background-color: #ff7e5f;
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px
+}
