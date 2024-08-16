@@ -4,15 +4,23 @@
   "description": "",
   "private": true,
   "dependencies": {
+    "@koa/cors": "^5.0.0",
     "@midwayjs/bootstrap": "^3.12.0",
-    "@midwayjs/core": "^3.12.0",
+    "@midwayjs/core": "^3.16.2",
+    "@midwayjs/decorator": "^3.16.2",
     "@midwayjs/info": "^3.12.0",
     "@midwayjs/koa": "^3.12.0",
     "@midwayjs/logger": "^3.1.0",
-    "@midwayjs/validate": "^3.12.0"
+    "@midwayjs/typeorm": "^3.16.5",
+    "@midwayjs/validate": "^3.12.0",
+    "@types/koa__cors": "^5.0.0",
+    "bcryptjs": "^2.4.3",
+    "mysql2": "^3.11.0",
+    "typeorm": "^0.3.20"
   },
   "devDependencies": {
     "@midwayjs/mock": "^3.12.0",
+    "@types/bcryptjs": "^2.4.6",
     "@types/jest": "^29.2.0",
     "@types/node": "14",
     "cross-env": "^6.0.0",

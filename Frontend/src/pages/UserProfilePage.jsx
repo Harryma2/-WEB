@@ -4,42 +4,65 @@ import './UserProfilePage.css';
 
 const UserProfilePage = () => {
     const [followedGroups, setFollowedGroups] = useState([]);
+    const [recentPosts, setRecentPosts] = useState([]);
+    const [userName, setUserName] = useState('');
+    const [userEmail, setUserEmail] = useState('');
+    const [userHobbies, setUserHobbies] = useState('');
     const navigate = useNavigate();
 
-    const user = {
-        name: '张三',
-        avatar: '/src/assets/avatar.jpg', // 替换为用户头像的路径
-        details: '爱好：音乐、旅行、美食'
-    };
-
-    const recentPosts = [
-        { id: 1, title: '我最近去了一个很棒的地方', content: '分享我在XXX的旅行经历...' },
-        { id: 2, title: '音乐推荐', content: '最近发现了一些很棒的音乐...' },
-        // 添加更多的帖子
-    ];
-
     useEffect(() => {
-        // 从 localStorage 获取用户关注的兴趣圈
+        const storedUserName = localStorage.getItem('userName');
+        const storedUserEmail = localStorage.getItem('userEmail');
+        const storedUserHobbies = localStorage.getItem('userHobbies');
+
+        if (storedUserName) {
+            setUserName(storedUserName);
+        }
+
+        if (storedUserEmail) {
+            setUserEmail(storedUserEmail);
+        }
+
+        if (storedUserHobbies) {
+            setUserHobbies(storedUserHobbies);
+        }
+
+
         const followedGroups = [];
-        for (let i = 1; i <= 10; i++) {
+        for (let i = 1; i <= 20; i++) {
             const followed = localStorage.getItem(`followedGroup_${i}`);
             if (followed) {
-                followedGroups.push({ id: i, name: `兴趣圈 ${i}` }); // 根据实际需求调整兴趣圈名称
+                followedGroups.push({ id: i, name: `兴趣圈 ${i}` });
             }
         }
         setFollowedGroups(followedGroups);
+
+
+        const userPosts = [];
+        const storedGroups = JSON.parse(localStorage.getItem('interestGroups') || '[]');
+        storedGroups.forEach(group => {
+            if (group.posts) {
+                group.posts.forEach(post => {
+
+                    if (post.author === storedUserEmail) {
+                        userPosts.push(post);
+                    }
+                });
+            }
+        });
+        setRecentPosts(userPosts);
     }, []);
 
     const handleBackClick = () => {
-        navigate('/main'); // 返回主界面
+        navigate('/main');
     };
 
     const handlePostClick = (id) => {
-        navigate(`/post/${id}`); // 导航到帖子详情页
+        navigate(`/post/${id}`);
     };
 
     const handleGroupClick = (id) => {
-        navigate(`/group/${id}`); // 导航到兴趣圈详情页
+        navigate(`/group/${id}`);
     };
 
     return (
@@ -50,9 +73,10 @@ const UserProfilePage = () => {
             </header>
 
             <div className="profile-user-info">
-                <img src={user.avatar} alt="用户头像" className="profile-user-avatar" />
-                <h2 className="profile-user-name">{user.name}</h2>
-                <p className="profile-user-details">{user.details}</p>
+                <img src="/src/assets/avatar.jpg" alt="用户头像" className="profile-user-avatar" />
+                <h2 className="profile-user-name">用户名: {userName}</h2>
+                <p className="profile-user-email">邮箱: {userEmail}</p>
+                <p className="profile-user-details">爱好：{userHobbies}</p>
             </div>
 
             <section className="profile-recent-posts">

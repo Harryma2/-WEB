@@ -9,10 +9,7 @@ const CreateGroupPage = () => {
     const navigate = useNavigate();
 
     const handleCreateGroup = () => {
-        if (!groupName && !groupDescription) {
-            setError('请填写兴趣圈名称和描述');
-            return;
-        }
+
         if (!groupName) {
             setError('请填写兴趣圈名称');
             return;
@@ -22,20 +19,41 @@ const CreateGroupPage = () => {
             return;
         }
 
-        setError(''); // 清除错误信息
-        // 在这里处理兴趣圈的创建逻辑，例如调用 API。
-        // 成功后导航回到主页面。
+        setError('');
+
+
+        const storedGroups = JSON.parse(localStorage.getItem('interestGroups') || '[]');
+
+
+        const newId = storedGroups.length ? Math.max(...storedGroups.map(group => group.id)) + 1 : 1;
+
+
+        const newGroup = {
+            id: newId,
+            name: groupName,
+            description: groupDescription
+        };
+
+
+        storedGroups.push(newGroup);
+
+
+        localStorage.setItem('interestGroups', JSON.stringify(storedGroups));
+
+
+
+
         navigate('/main');
     };
 
     const handleBack = () => {
-        navigate('/main'); // 返回到主页面
+        navigate('/main');
     };
 
     return (
         <div className="create-group-page">
             <header className="create-group-header">
-                <button onClick={handleBack} className="back-button">返回</button>
+                <button onClick={handleBack} className="CGP-back-button">返回</button>
                 <h1>创建新的兴趣圈</h1>
             </header>
             <section className="create-group-form">

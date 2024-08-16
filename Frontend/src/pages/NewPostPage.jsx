@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './NewPostPage.css';
 
 const NewPostPage = () => {
@@ -7,6 +7,8 @@ const NewPostPage = () => {
     const [content, setContent] = useState('');
     const [image, setImage] = useState(null);
     const navigate = useNavigate();
+    const { groupId } = useParams();
+    const userEmail = localStorage.getItem('userEmail'); // 从 localStorage 获取用户邮箱
 
     const handleTitleChange = (e) => setTitle(e.target.value);
     const handleContentChange = (e) => setContent(e.target.value);
@@ -19,14 +21,40 @@ const NewPostPage = () => {
 
     const handleImageRemove = () => {
         setImage(null);
-        // 清除文件输入
-        document.querySelector('.file-input').value = '';
+        document.querySelector('#file-input').value = '';
     };
 
     const handleSubmit = () => {
-        // 处理提交逻辑
-        console.log('提交帖子:', { title, content, image });
-        navigate('/group'); // 假设提交后返回兴趣圈界面
+        if (!title || !content) {
+            alert('请填写标题和内容');
+            return;
+        }
+
+        // 从 localStorage 获取现有帖子
+        const storedGroups = JSON.parse(localStorage.getItem('interestGroups') || '[]');
+        const group = storedGroups.find(g => g.id === parseInt(groupId));
+
+        if (group) {
+            // 生成新的帖子 ID
+            const newPostId = (group.posts && group.posts.length ? Math.max(group.posts.map(p => p.id)) + 1 : 1);
+            const newPostIdentifier = `${groupId}-${newPostId}`; // 组合兴趣圈 ID 和帖子 ID 生成唯一标识符
+
+            const newPost = {
+                id: newPostIdentifier, // 使用组合标识符
+                title,
+                content,
+                image,
+                author: userEmail, // 添加作者字段
+                publishedDate: new Date().toISOString() // 添加发布时间字段
+            };
+
+            group.posts = group.posts ? [...group.posts, newPost] : [newPost];
+
+            // 更新兴趣圈数据
+            localStorage.setItem('interestGroups', JSON.stringify(storedGroups));
+        }
+
+        navigate(`/group/${groupId}`); // 提交后返回兴趣圈界面
     };
 
     const handleBackClick = () => {

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginForm.css';
 
-
 const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -18,15 +17,25 @@ const LoginForm = () => {
             return;
         }
 
-        console.log('登录信息:', { email, password });
+        const storedEmail = localStorage.getItem('userEmail');
+        const storedPassword = localStorage.getItem('userPassword');
 
-        // 模拟登录验证，这里可以替换为实际的验证逻辑
-        if (email === 'user@example.com' && password === 'password') {
-            setError('');
-            navigate('/main'); // 登录成功后跳转到主页面
-        } else {
-            setError('账号或密码错误');
+
+        if (email !== storedEmail) {
+            setError('邮箱不存在');
+            return;
         }
+
+        if (password !== storedPassword) {
+            setError('密码错误');
+            return;
+        }
+        console.log('登录成功:', { email });
+        navigate('/main');
+    }
+
+    const handleRegisterClick = () => {
+        navigate('/register');
     };
 
     return (
@@ -58,6 +67,9 @@ const LoginForm = () => {
                     {error && <p className="error">{error}</p>}
                     <button type="submit">登录</button>
                 </form>
+                <button onClick={handleRegisterClick} className="register-button">
+                    注册
+                </button>
             </div>
         </div>
     );

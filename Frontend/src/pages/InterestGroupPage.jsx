@@ -1,33 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './InterestGroupPage.css';
 
 const InterestGroupPage = () => {
     const [isFollowing, setIsFollowing] = useState(false);
+    const [group, setGroup] = useState(null);
     const navigate = useNavigate();
     const { groupId } = useParams();
 
+
+    const initialPosts = [
+        { id: `${groupId}-1`, title: '欢迎来到兴趣圈', content: '这是我们圈子的第一个帖子，欢迎大家加入讨论！' },
+        { id: `${groupId}-2`, title: '如何在这个圈子中发帖？', content: '点击右下角的 + 按钮来发帖，分享你的想法和经历！' },
+    ];
+
     useEffect(() => {
-        // 从 localStorage 获取关注状态
-        const followed = localStorage.getItem(`followedGroup_${groupId}`);
-        setIsFollowing(!!followed);
-    }, [groupId]);
+        const groups = JSON.parse(localStorage.getItem('interestGroups')) || [];
+        const selectedGroup = groups.find((g) => g.id === parseInt(groupId, 10));
 
-    const interestGroups = {
-        1: { name: '音乐圈', description: '分享音乐的乐趣', activeMembers: 128, posts: [{ id: 1, title: '音乐推荐', content: '分享我最近听到的好音乐...' }] },
-        2: { name: '体育圈', description: '参与各种体育活动', activeMembers: 64, posts: [{ id: 2, title: '运动心得', content: '分享我在运动中的一些心得...' }] },
-        3: { name: '科技圈', description: '探讨最新科技趋势', activeMembers: 256, posts: [{ id: 3, title: '科技新闻', content: '分享我最近看到的科技新闻...' }] },
-        4: { name: '旅行圈', description: '分享旅行见闻', activeMembers: 32, posts: [{ id: 4, title: '旅行计划', content: '计划下一个旅行去哪里...' }] },
-        5: { name: '美食圈', description: '品尝各种美食', activeMembers: 512, posts: [{ id: 5, title: '美食推荐', content: '分享我最近吃到的好吃的...' }] },
-        6: { name: '摄影圈', description: '分享摄影作品', activeMembers: 16, posts: [{ id: 6, title: '摄影作品', content: '分享我最近拍的一些照片...' }] },
-        7: { name: '电影圈', description: '讨论喜欢的电影', activeMembers: 128, posts: [{ id: 7, title: '电影推荐', content: '分享我最近看的一部好电影...' }] },
-        8: { name: '读书圈', description: '分享阅读心得', activeMembers: 64, posts: [{ id: 8, title: '读书笔记', content: '分享我最近读的一本好书...' }] },
-        9: { name: '手工圈', description: 'DIY手工艺品', activeMembers: 32, posts: [{ id: 9, title: '手工作品', content: '分享我最近做的一些手工作品...' }] },
-        10: { name: '游戏圈', description: '玩游戏的乐趣', activeMembers: 256, posts: [{ id: 10, title: '游戏推荐', content: '分享我最近玩的一款好游戏...' }] },
-        // 添加更多兴趣圈数据
-    };
+        if (selectedGroup) {
 
-    const group = interestGroups[groupId] || {};
+            if (!selectedGroup.posts) {
+                selectedGroup.posts = [...initialPosts];
+                localStorage.setItem('interestGroups', JSON.stringify(groups));
+            }
+            setGroup(selectedGroup);
+        } else {
+            console.error('未找到对应的兴趣圈');
+            navigate('/main');
+        }
+
+        setIsFollowing(!!localStorage.getItem(`followedGroup_${groupId}`));
+    }, [groupId, navigate]);
 
     const handleBackClick = () => {
         navigate(-1);
@@ -52,13 +56,17 @@ const InterestGroupPage = () => {
         }
     };
 
+    if (!group) {
+        return <div>加载中...</div>;
+    }
+
     return (
         <div className="interest-group-page">
             <header className="interest-group-header">
                 <button onClick={handleBackClick} className="back-button">返回</button>
                 <h1>{group.name}</h1>
                 <div className="active-members">
-                    活跃成员: {group.activeMembers}
+                    活跃成员: {group.activeMembers || 0}
                 </div>
                 <button
                     onClick={handleFollowClick}
@@ -76,7 +84,7 @@ const InterestGroupPage = () => {
                 {group.posts && group.posts.map((post) => (
                     <div key={post.id} className="post-card" onClick={() => handlePostClick(post.id)}>
                         <h3>{post.title}</h3>
-                        <p>{post.content}</p>
+                        <p>{post.content.length > 100 ? `${post.content.substring(0, 100)}...` : post.content}</p>
                     </div>
                 ))}
             </section>
