@@ -9,7 +9,7 @@ export class PostService {
     postRepository: Repository<Post>;
 
     constructor() {
-        console.log('PostRepository:', this.postRepository); // 打印 repository 以检查注入
+        console.log('PostRepository:', this.postRepository);
     }
 
     async createPost(postData: Partial<Post>): Promise<Post> {
